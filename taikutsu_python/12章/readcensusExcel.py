@@ -15,6 +15,7 @@ print('ワークブックを開いています...')
 filename = 'censuspopdata.xlsx'
 sheetname = 'Population by Census Tract'
 wb = openpyxl.load_workbook(Path(__file__).parent / filename)
+# with load_workbook(Path(__file__).parent / filename) as wb:とは書けない。
 # print(dir(wb))
 # print(help(wb))
 # print(wb.path) # /xl/workbook.xml ディレクトリ上の path が返るわけではない。.xlsx を zip展開した中身の workbook.xmlの相対パスが返る。
@@ -22,7 +23,7 @@ wb = openpyxl.load_workbook(Path(__file__).parent / filename)
 sheet = wb[sheetname]
 # print(sheet['A1'].value) # A1セルの値「CensusTract」
 # print(sheet.title) # 'Population by Census Tract'
-del wb # wb への参照を削除する。参照がゼロになれば、オブジェクトがガベージコレクションの対象になる。wb2 = wb とかの処理があれば、参照数は 2
+
 county_data = {} # 空の dict,空の集合の定義は s = set()、s = {1,2,3}
 
 # TODO: conty_data に郡の人口と地域数を格納する
@@ -43,7 +44,11 @@ for row in range(2, sheet.max_row + 1):
     county_data[state][county]['tracts'] += 1
     # この人口調査標準地域の人口だけ郡の人口を増やす
     county_data[state][county]['pop'] += int(pop)
-    
+
+# wb.close() # read_only=True時は必須。それ以外は不要で無意味。
+del sheet # 変数を手放すだけで、メモリが開放されるわけではないが、ガベージコレクションの対象になる。
+del wb
+
 # TODO: 新しいテキストファイルを開き county_dataの内容を書き込む
 
 # P312
