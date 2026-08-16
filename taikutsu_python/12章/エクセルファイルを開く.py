@@ -1,0 +1,30 @@
+
+import openpyxl
+from pathlib import Path
+import win32com.client
+from openpyxl.worksheet.worksheet import Worksheet
+# import ファイル（モジュール）とは、書けるが、
+# import クラス とは書けない。
+# from モジュール import クラス と書くことはできる。
+
+# openpyxlでファイルを作成・保存
+wb = openpyxl.Workbook()
+sheet = wb.active
+# assert(isinstance(sheet, openpyxl.worksheet.worksheet.Worksheet)) #動くが、型チェッカーが面倒みてくれないので、よろしくない
+assert(isinstance(sheet, Worksheet))
+
+print(type(sheet))
+sheet['A1'] = 'Hello world'
+print(sheet['A1'].value)
+
+fpath = (Path(__file__).parent / 'output.xlsx').resolve()
+wb.save(fpath)
+wb.close()
+
+# COM経由でExcelを起動してファイルを開く
+excel = win32com.client.Dispatch("Excel.Application")
+excel.Visible = True
+excel.Workbooks.Open(str(fpath))
+
+# Quit() は呼ばない（呼ばないとExcelは開いたまま残る）
+print("Excelを開きました。スクリプト終了します。")
