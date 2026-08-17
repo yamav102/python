@@ -1,4 +1,6 @@
-
+# python 3
+# P315
+# 12.5.3
 import openpyxl
 from pathlib import Path
 import win32com.client
@@ -33,4 +35,4 @@ excel.Workbooks.Open(str(fpath))
 input(f'{fpath.name} を閉じて、削除します。')
 excel.Quit()
 time.sleep(1)
-fpath.unlink()
+fpath.unlink() # 保存した output.xlsx を削除
