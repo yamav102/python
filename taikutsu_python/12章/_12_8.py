@@ -26,7 +26,7 @@ rngC4 = sheet['c4']
 rngC4.value = '=sum(1,2)'
 savepath = Path(__file__).parent / 'styles.xlsx'
 
-if (not savepath.exists
+if (not savepath.exists()
     or 
     jaconv.zen2han(
         input('上書きしますか？(y/n)').strip().lower(), 
