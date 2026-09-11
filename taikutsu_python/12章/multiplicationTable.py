@@ -48,7 +48,7 @@ def main(n: int, xlpath: str)->None:
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='N * N の表を作成します。',
-        epilog="py multiplicationTable N"
+        epilog="py multiplicationTable.py N"
     )
     parser.add_argument(
         'number',
