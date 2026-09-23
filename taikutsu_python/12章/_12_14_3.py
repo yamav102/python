@@ -21,11 +21,13 @@ def mk_save_name(xlpath:str)->str:
         i += 1
     return str(cand)
 
-def main(xlpath:str)->None:
+def main(xlpath:str, alignTopLeft:bool=False)->None:
     wb = openpyxl.load_workbook(xlpath, data_only=True)
     ws:Worksheet = wb.worksheets[0] # 最左シート
     wsn:Worksheet = wb.create_sheet(index=0)
     # ws使用範囲をループしながらwsn に値を転記
+    offset_clm = ws.min_row - ws.min_column
+    offset_rw = ws.min_column - ws.min_row
     for rw in range(ws.min_row, ws.max_row+1):
         for clm in range(ws.min_column, ws.max_column+1):
             # 型チェッカー対策。実行だけなら次の1行で足りる
@@ -35,7 +37,10 @@ def main(xlpath:str)->None:
                 val = None
             else:
                 val = src.value
-            dst = wsn.cell(row=clm, column=rw)
+            if alignTopLeft:                
+                dst = wsn.cell(row=clm + offset_clm, column=rw + offset_rw)
+            else:
+                dst = wsn.cell(row=clm, column=rw)
             assert isinstance(dst, Cell)
             dst.value = val
         
@@ -48,14 +53,20 @@ def main(xlpath:str)->None:
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='行列を入れ替えます',
-        epilog='py _12_14_3.py hoge.xlsx'
+        epilog='py _12_14_3.py hoge.xlsx --alignTopLeft=True' 
     )
     parser.add_argument(
         # --xlpath とすると名前付引数になる。
         # --または- を付けた場合は名前付で指定しないとエラーになる。
-        'xlpath', 
+        'xlpath',
         type=str,
         help='行列入れ替えたいxlsxファイルパス'
     )
+    parser.add_argument(
+        '--alignTopLeft',
+        required=False,
+        type=bool,
+        help='行列入替え前後の左上端セルを同一にします'
+    )
     args = parser.parse_args()
-    main(args.xlpath)
+    main(args.xlpath, args.alignTopLeft)
