@@ -45,13 +45,14 @@ def main()->None:
 
             # 表紙ページを含めるか、
             start_page = 0 if is_initial else 1
-            
+            page_each_count = 0
             for page_num in range(start_page, len(pdf_reader.pages)):
                 page_obj = pdf_reader.pages[page_num]
                 pdf_writer.add_page(page_obj)
                 page_count += 1
-                is_initial = False
-            print(f'{filename} は、統合されました。')
+                page_each_count += 1
+            is_initial = False
+            print(f'{filename} は、統合されました。[{page_each_count}]ページ')
 
         if is_initial:
             print('統合対象のページがありませんでした。')
