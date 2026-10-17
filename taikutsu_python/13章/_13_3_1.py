@@ -19,6 +19,7 @@ def main()->None:
     print(doc.paragraphs[1].runs[3].text)
     for rns in doc.paragraphs[1].runs:
         print(rns.text)
+# 7        
 # Document Title
 # A plain paragraph with some bold and some italic
 # 4
