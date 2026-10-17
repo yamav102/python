@@ -12,6 +12,12 @@ def main()->None:
     print(len(doc.paragraphs))
     print(doc.paragraphs[0].text)
     print(doc.paragraphs[1].text)
+    paragraph_cnt = 0
+    for prgrph in doc.paragraphs:
+        paragraph_cnt += 1
+        print(f'第{paragraph_cnt} パラグラフ')
+        print(prgrph.text)
+
     print(len(doc.paragraphs[1].runs))
     print(doc.paragraphs[1].runs[0].text)
     print(doc.paragraphs[1].runs[1].text)
@@ -19,9 +25,24 @@ def main()->None:
     print(doc.paragraphs[1].runs[3].text)
     for rns in doc.paragraphs[1].runs:
         print(rns.text)
-# 7        
+# $ py _13_3_1.py 
+# 7
 # Document Title
 # A plain paragraph with some bold and some italic
+# 第1 パラグラフ
+# Document Title
+# 第2 パラグラフ
+# A plain paragraph with some bold and some italic
+# 第3 パラグラフ
+# Heading, level 1
+# 第4 パラグラフ
+# Intense quote
+# 第5 パラグラフ
+# first item in unordered list
+# 第6 パラグラフ
+# first item in ordered list
+# 第7 パラグラフ
+
 # 4
 # A plain paragraph with some 
 # bold
@@ -30,7 +51,8 @@ def main()->None:
 # A plain paragraph with some 
 # bold
 #  and some 
-# italic        
+# italic
+     
 
 if __name__ == '__main__':
     main()
