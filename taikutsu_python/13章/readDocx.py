@@ -8,7 +8,7 @@ import docx
 from pathlib import Path
 import argparse
 import sys
-def main(filename: Path)->str:
+def main(filename: Path | str)->str:
     doc = docx.Document(str(filename))
     full_text = []
     for para in doc.paragraphs:
