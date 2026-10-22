@@ -1,6 +1,7 @@
 #! python3
 # P351
-# _13_3_2.py
+# _13_3_2
+# readDocx.py
 # .docxファイルから全テキストを取得する
 
 import docx
