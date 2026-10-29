@@ -12,4 +12,5 @@ para_obj1 = doc.add_paragraph('これは第2段落です。')
 para_obj2 = doc.add_paragraph('これは第3段落です。')
 print(para_obj1.add_run(' これは第2段落に追加したテキストです。'))
 # <docx.text.run.Run object at 0x00000214AC25C8A0>
+para_obj1.insert_paragraph_before('これは第2段落の手前に挿入された段落です。')
 doc.save('hellloworld.docx')
