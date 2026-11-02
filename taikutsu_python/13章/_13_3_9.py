@@ -7,9 +7,12 @@ import docx
 from docx.shared import Inches, Cm
 doc = docx.Document()
 # インチ指定、Cm指定が出来る
+# pic = doc.add_picture('zophie.png', 
+#                 width=Inches(2.5),
+#                 height=Cm(8.5))
 pic = doc.add_picture('zophie.png', 
                 width=Inches(2.5),
-                height=Cm(8.5))
+                height=3060000) # ← EMU単位なら直に指定できる。可読性のため Cm() Inches() を使う。
 # width heightは int なのだが、
 # python-docx の場合：
 # 8.5 cm → 3060000 EMU   （単位を細かくして整数化）
